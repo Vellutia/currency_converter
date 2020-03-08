@@ -64,14 +64,16 @@ class TopValue extends StatelessWidget {
                                         : '${curState.value.toStringAsFixed(2)}',
                                 maxLines: 1,
                                 minFontSize: 12.0,
-                                style:
-                                    Theme.of(context).primaryTextTheme.headline1,
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline1,
                               ),
                             ),
                             horizontalSpaceTiny,
                             Text(
                               '${curState.symbol}',
-                              style: Theme.of(context).primaryTextTheme.headline5,
+                              style:
+                                  Theme.of(context).primaryTextTheme.headline5,
                             ),
                           ],
                         ),

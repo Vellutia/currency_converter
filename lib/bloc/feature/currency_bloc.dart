@@ -53,12 +53,14 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
         name: 'Indonesian Rupiah',
         symbol: 'Rp',
         value: 1 * rates,
+        isCurr: true,
       );
       final bottomValue = Value(
         id: 'USD',
         name: 'United States Dollar',
         symbol: '\$',
         value: 1,
+        isCurr: true,
       );
       final isTop = false;
       yield CurrencyLoaded(
@@ -67,15 +69,7 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
         isTop: isTop,
       );
     } else if (state is CurrencyLoaded) {
-      final rates = (state as CurrencyLoaded).isTop
-          ? await _ratesRepository.fetchRates(
-              '${(state as CurrencyLoaded).topValue.id}',
-              '${(state as CurrencyLoaded).bottomValue.id}',
-            )
-          : await _ratesRepository.fetchRates(
-              '${(state as CurrencyLoaded).bottomValue.id}',
-              '${(state as CurrencyLoaded).topValue.id}',
-            );
+      final rates = await _mapInitRates();
       final topValue = (state as CurrencyLoaded).isTop
           ? (state as CurrencyLoaded).topValue.copyWith()
           : (state as CurrencyLoaded).topValue.copyWith(
@@ -95,25 +89,17 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
     }
   }
 
-  Stream<CurrencyState> _mapChangeNameTopToState(ChangeNameTop event) async* {
+  Stream<CurrencyState> _mapChangeNameTopToState(
+    ChangeNameTop event,
+  ) async* {
     if (state is CurrencyLoaded) {
       Router.navigator.pop();
-      double rates;
-      if (event.currency is Currency) {
-        rates = await _ratesRepository.fetchRates(
-          '${event.currency.currencyId}',
-          '${(state as CurrencyLoaded).bottomValue.id}',
-        );
-      } else {
-        rates = await _ratesCryptoRepository.fetchRateCrypto(
-          '${event.currency.currencyId}',
-          '${(state as CurrencyLoaded).bottomValue.id}',
-        );
-      }
+      final rates = await _mapChangeNameTopRates(event);
       final topValue = (state as CurrencyLoaded).topValue.copyWith(
             id: event.currency.currencyId,
             name: event.currency.currencyName,
             symbol: event.currency.currencySymbol,
+            isCurr: event.currency is Currency ? true : false,
           );
       final bottomValue = (state as CurrencyLoaded).bottomValue.copyWith(
             value: (state as CurrencyLoaded).topValue.value * rates,
@@ -128,22 +114,11 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
   }
 
   Stream<CurrencyState> _mapChangeNameBottomToState(
-      ChangeNameBottom event) async* {
+    ChangeNameBottom event,
+  ) async* {
     if (state is CurrencyLoaded) {
       Router.navigator.pop();
-      double rates;
-      if (event.currency is Currency) {
-        rates = await _ratesRepository.fetchRates(
-          '${event.currency.currencyId}',
-          '${(state as CurrencyLoaded).topValue.id}',
-        );
-      } else {
-        print(event.currency.currencyId);
-        rates = await _ratesCryptoRepository.fetchRateCrypto(
-          '${event.currency.currencyId}',
-          '${(state as CurrencyLoaded).topValue.id}',
-        );
-      }
+      final rates = await _mapChangeNameBottomRates(event);
       final topValue = (state as CurrencyLoaded).topValue.copyWith(
             value: (state as CurrencyLoaded).bottomValue.value * rates,
           );
@@ -151,6 +126,7 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
             id: event.currency.currencyId,
             name: event.currency.currencyName,
             symbol: event.currency.currencySymbol,
+            isCurr: event.currency is Currency ? true : false,
           );
       final isTop = false;
       yield CurrencyLoaded(
@@ -161,13 +137,12 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
     }
   }
 
-  Stream<CurrencyState> _mapChangeValueTopToState(ChangeValueTop event) async* {
+  Stream<CurrencyState> _mapChangeValueTopToState(
+    ChangeValueTop event,
+  ) async* {
     if (state is CurrencyLoaded && event.value.isNotEmpty) {
       Router.navigator.pop();
-      final rates = await _ratesRepository.fetchRates(
-        '${(state as CurrencyLoaded).topValue.id}',
-        '${(state as CurrencyLoaded).bottomValue.id}',
-      );
+      final rates = await _mapChangeValueTopRates();
       final topValue = (state as CurrencyLoaded).topValue.copyWith(
             value: double.parse(event.value),
           );
@@ -184,13 +159,11 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
   }
 
   Stream<CurrencyState> _mapChangeValueBottomToState(
-      ChangeValueBottom event) async* {
+    ChangeValueBottom event,
+  ) async* {
     if (state is CurrencyLoaded && event.value.isNotEmpty) {
       Router.navigator.pop();
-      final rates = await _ratesRepository.fetchRates(
-        '${(state as CurrencyLoaded).bottomValue.id}',
-        '${(state as CurrencyLoaded).topValue.id}',
-      );
+      final rates = await _mapChangeValueBottomRates();
       final topValue = (state as CurrencyLoaded).topValue.copyWith(
             value: double.parse(event.value) * rates,
           );
@@ -236,5 +209,83 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
     } catch (_) {
       return null;
     }
+  }
+
+  Future<double> _mapInitRates() async {
+    if ((state as CurrencyLoaded).isTop) {
+      return ((state as CurrencyLoaded).topValue.isCurr &&
+              (state as CurrencyLoaded).bottomValue.isCurr)
+          ? await _ratesRepository.fetchRates(
+              '${(state as CurrencyLoaded).topValue.id}',
+              '${(state as CurrencyLoaded).bottomValue.id}',
+            )
+          : await _ratesCryptoRepository.fetchRateCrypto(
+              '${(state as CurrencyLoaded).topValue.id}',
+              '${(state as CurrencyLoaded).bottomValue.id}',
+            );
+    } else {
+      return ((state as CurrencyLoaded).topValue.isCurr &&
+              (state as CurrencyLoaded).bottomValue.isCurr)
+          ? await _ratesRepository.fetchRates(
+              '${(state as CurrencyLoaded).bottomValue.id}',
+              '${(state as CurrencyLoaded).topValue.id}',
+            )
+          : await _ratesCryptoRepository.fetchRateCrypto(
+              '${(state as CurrencyLoaded).bottomValue.id}',
+              '${(state as CurrencyLoaded).topValue.id}',
+            );
+    }
+  }
+
+  Future<double> _mapChangeNameTopRates(ChangeNameTop event) async {
+    return (event.currency is Currency &&
+            (state as CurrencyLoaded).bottomValue.isCurr)
+        ? await _ratesRepository.fetchRates(
+            '${event.currency.currencyId}',
+            '${(state as CurrencyLoaded).bottomValue.id}',
+          )
+        : await _ratesCryptoRepository.fetchRateCrypto(
+            '${event.currency.currencyId}',
+            '${(state as CurrencyLoaded).bottomValue.id}',
+          );
+  }
+
+  Future<double> _mapChangeNameBottomRates(ChangeNameBottom event) async {
+    return (event.currency is Currency &&
+            (state as CurrencyLoaded).topValue.isCurr)
+        ? await _ratesRepository.fetchRates(
+            '${event.currency.currencyId}',
+            '${(state as CurrencyLoaded).topValue.id}',
+          )
+        : await _ratesCryptoRepository.fetchRateCrypto(
+            '${event.currency.currencyId}',
+            '${(state as CurrencyLoaded).topValue.id}',
+          );
+  }
+
+  Future<double> _mapChangeValueTopRates() async {
+    return ((state as CurrencyLoaded).topValue.isCurr &&
+            (state as CurrencyLoaded).bottomValue.isCurr)
+        ? await _ratesRepository.fetchRates(
+            '${(state as CurrencyLoaded).topValue.id}',
+            '${(state as CurrencyLoaded).bottomValue.id}',
+          )
+        : await _ratesCryptoRepository.fetchRateCrypto(
+            '${(state as CurrencyLoaded).topValue.id}',
+            '${(state as CurrencyLoaded).bottomValue.id}',
+          );
+  }
+
+  Future<double> _mapChangeValueBottomRates() async {
+    return ((state as CurrencyLoaded).topValue.isCurr &&
+            (state as CurrencyLoaded).bottomValue.isCurr)
+        ? await _ratesRepository.fetchRates(
+            '${(state as CurrencyLoaded).bottomValue.id}',
+            '${(state as CurrencyLoaded).topValue.id}',
+          )
+        : await _ratesCryptoRepository.fetchRateCrypto(
+            '${(state as CurrencyLoaded).bottomValue.id}',
+            '${(state as CurrencyLoaded).topValue.id}',
+          );
   }
 }
