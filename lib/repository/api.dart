@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:currency_converter/model/rate_crypto.dart';
 import 'package:http/http.dart' as http;
 
 import '../model/rate.dart';
+import '../model/rate_crypto.dart';
 
 class Api {
   static const baseEndpoint = 'https://api.exchangeratesapi.io';

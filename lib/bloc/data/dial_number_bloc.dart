@@ -3,21 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class DialNumberEvent extends Equatable {
   const DialNumberEvent();
+
+  @override
+  List<Object> get props => [];
 }
 
 class DialNumberAdd extends DialNumberEvent {
   final String number;
 
-  DialNumberAdd(this.number);
+  const DialNumberAdd(this.number);
 
   @override
   List<Object> get props => [number];
 }
 
-class DialNumberDelete extends DialNumberEvent {
-  @override
-  List<Object> get props => [];
-}
+class DialNumberDelete extends DialNumberEvent {}
 
 class DialNumberBloc extends Bloc<DialNumberEvent, String> {
   @override

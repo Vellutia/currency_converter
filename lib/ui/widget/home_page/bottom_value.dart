@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:currency_converter/model/value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/feature/currency_bloc.dart';
 import '../../../constant/ui_helper.dart';
+import '../../../model/value.dart';
 import '../../../navigator/router.dart';
 
 class BottomValue extends StatelessWidget {

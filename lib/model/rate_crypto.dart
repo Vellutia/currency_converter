@@ -1,10 +1,10 @@
 class RateCrypto {
-  DateTime time;
-  String assetIdBase;
-  String assetIdQuote;
-  double rate;
+  final DateTime time;
+  final String assetIdBase;
+  final String assetIdQuote;
+  final double rate;
 
-  RateCrypto({
+  const RateCrypto({
     this.time,
     this.assetIdBase,
     this.assetIdQuote,

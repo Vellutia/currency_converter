@@ -1,9 +1,9 @@
 class Rate {
-  Rates rates;
-  String base;
-  DateTime date;
+  final Rates rates;
+  final String base;
+  final DateTime date;
 
-  Rate({
+  const Rate({
     this.rates,
     this.base,
     this.date,
@@ -17,9 +17,9 @@ class Rate {
 }
 
 class Rates {
-  double gbp;
+  final double gbp;
 
-  Rates({
+  const Rates({
     this.gbp,
   });
 

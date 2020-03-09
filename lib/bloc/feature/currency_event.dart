@@ -2,17 +2,17 @@ part of 'currency_bloc.dart';
 
 abstract class CurrencyEvent extends Equatable {
   const CurrencyEvent();
-}
 
-class InitCurrency extends CurrencyEvent {
   @override
   List<Object> get props => [];
 }
 
+class InitCurrency extends CurrencyEvent {}
+
 class ChangeNameTop extends CurrencyEvent {
   final Curr currency;
 
-  ChangeNameTop({this.currency});
+  const ChangeNameTop({this.currency});
 
   @override
   List<Object> get props => [currency];
@@ -21,7 +21,7 @@ class ChangeNameTop extends CurrencyEvent {
 class ChangeNameBottom extends CurrencyEvent {
   final Curr currency;
 
-  ChangeNameBottom({this.currency});
+  const ChangeNameBottom({this.currency});
 
   @override
   List<Object> get props => [currency];
@@ -30,7 +30,7 @@ class ChangeNameBottom extends CurrencyEvent {
 class ChangeValueTop extends CurrencyEvent {
   final String value;
 
-  ChangeValueTop({this.value});
+  const ChangeValueTop({this.value});
 
   @override
   List<Object> get props => [value];
@@ -39,7 +39,7 @@ class ChangeValueTop extends CurrencyEvent {
 class ChangeValueBottom extends CurrencyEvent {
   final String value;
 
-  ChangeValueBottom({this.value});
+  const ChangeValueBottom({this.value});
 
   @override
   List<Object> get props => [value];

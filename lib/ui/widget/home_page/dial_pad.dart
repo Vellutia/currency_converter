@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:currency_converter/bloc/data/dial_number_bloc.dart';
-import 'package:currency_converter/bloc/feature/currency_bloc.dart';
-import 'package:currency_converter/constant/ui_helper.dart';
-import 'package:currency_converter/navigator/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../bloc/data/dial_number_bloc.dart';
+import '../../../bloc/feature/currency_bloc.dart';
+import '../../../constant/ui_helper.dart';
+import '../../../navigator/router.dart';
 import 'dial_button.dart';
 
 class DialPad extends StatefulWidget {

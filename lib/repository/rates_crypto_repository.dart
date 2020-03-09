@@ -1,5 +1,3 @@
-import 'package:currency_converter/model/rate_crypto.dart';
-
 import '../locator.dart';
 import 'api.dart';
 

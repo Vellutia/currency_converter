@@ -1,9 +1,9 @@
-import 'package:currency_converter/bloc/data/position_bloc.dart';
-import 'package:currency_converter/constant/currency_list_const.dart';
-import 'package:currency_converter/model/currency_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../bloc/data/position_bloc.dart';
+import '../../../constant/currency_list_const.dart';
+import '../../../model/currency_list.dart';
 import 'category_tile.dart';
 import 'currency_tile.dart';
 

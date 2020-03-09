@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:currency_converter/model/rate.dart';
-import 'package:currency_converter/repository/rates_crypto_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
@@ -9,6 +7,7 @@ import '../../locator.dart';
 import '../../model/currency_list.dart';
 import '../../model/value.dart';
 import '../../navigator/router.dart';
+import '../../repository/rates_crypto_repository.dart';
 import '../../repository/rates_repository.dart';
 
 part 'currency_event.dart';

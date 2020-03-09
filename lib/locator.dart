@@ -1,9 +1,8 @@
-import 'package:currency_converter/bloc/data/dial_number_bloc.dart';
-import 'package:currency_converter/bloc/data/position_bloc.dart';
-import 'package:currency_converter/repository/rates_crypto_repository.dart';
 import 'package:get_it/get_it.dart';
 
+import 'bloc/data/position_bloc.dart';
 import 'repository/api.dart';
+import 'repository/rates_crypto_repository.dart';
 import 'repository/rates_repository.dart';
 
 GetIt locator = GetIt.instance;

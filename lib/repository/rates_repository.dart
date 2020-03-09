@@ -1,5 +1,4 @@
 import '../locator.dart';
-import '../model/rate.dart';
 import 'api.dart';
 
 class RatesRepository {

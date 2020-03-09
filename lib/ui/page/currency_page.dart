@@ -1,6 +1,6 @@
-import 'package:currency_converter/navigator/router.dart';
 import 'package:flutter/material.dart';
 
+import '../../navigator/router.dart';
 import '../widget/currency_page/currency_listview.dart';
 
 class CurrencyPage extends StatelessWidget {

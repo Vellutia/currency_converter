@@ -1,11 +1,10 @@
-import 'package:currency_converter/bloc/data/dial_number_bloc.dart';
-import 'package:currency_converter/bloc/feature/currency_bloc.dart';
-import 'package:currency_converter/navigator/router.dart';
-import 'package:currency_converter/ui/widget/home_page/dial_pad.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/feature/currency_bloc.dart';
+import '../../navigator/router.dart';
 import '../widget/home_page/bottom_value.dart';
+import '../widget/home_page/dial_pad.dart';
 import '../widget/home_page/top_value.dart';
 
 class HomePage extends StatelessWidget {
