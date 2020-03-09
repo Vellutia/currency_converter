@@ -1,8 +1,7 @@
-import 'package:currency_converter/bloc/data/dial_number_bloc.dart';
-import 'package:currency_converter/bloc/data/position_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/data/position_bloc.dart';
 import '../locator.dart';
 import '../ui/page/currency_page.dart';
 import '../ui/page/home_page.dart';
