@@ -24,65 +24,67 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size.height;
-
     return SafeArea(
-      child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          mini: true,
-          foregroundColor:
-              Theme.of(context).floatingActionButtonTheme.foregroundColor,
-          backgroundColor:
-              Theme.of(context).floatingActionButtonTheme.backgroundColor,
-          onPressed: () => Router.navigator.pushNamed(Router.settingPage),
-          child: Icon(Icons.settings),
-        ),
-        body: Stack(
-          children: [
-            Column(
-              children: <Widget>[
-                TopValue(
-                  show: show,
-                ),
-                BottomValue(
-                  show: show,
-                ),
-              ],
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                height: size * 0.5 * 0.3,
-                width: size * 0.5 * 0.3,
-                decoration: ShapeDecoration(
-                  shape: CircleBorder(),
-                  color: Theme.of(context).primaryColor,
-                ),
+      child: LayoutBuilder(
+        builder: (context, constraints) => Scaffold(
+          floatingActionButton: FloatingActionButton(
+            mini: true,
+            foregroundColor:
+                Theme.of(context).floatingActionButtonTheme.foregroundColor,
+            backgroundColor:
+                Theme.of(context).floatingActionButtonTheme.backgroundColor,
+            onPressed: () => Router.navigator.pushNamed(Router.settingPage),
+            child: Icon(Icons.settings),
+          ),
+          body: Stack(
+            fit: StackFit.expand,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  TopValue(
+                    show: show,
+                  ),
+                  BottomValue(
+                    show: show,
+                  ),
+                ],
               ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                height: size * 0.5 * 0.26,
-                width: size * 0.5 * 0.26,
-                decoration: ShapeDecoration(
-                  shape: CircleBorder(),
-                  color: Theme.of(context).accentColor,
-                ),
-                child: BlocBuilder<CurrencyBloc, CurrencyState>(
-                  builder: (context, state) => Icon(
-                    state.isTop == null
-                        ? null
-                        : state.isTop
-                            ? Icons.arrow_downward
-                            : Icons.arrow_upward,
-                    size: size * 0.5 * 0.2,
-                    color: Theme.of(context).accentIconTheme.color,
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  height: constraints.maxHeight * 0.5 * 0.3,
+                  width: constraints.maxHeight * 0.5 * 0.3,
+                  decoration: ShapeDecoration(
+                    shape: CircleBorder(),
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
               ),
-            ),
-          ],
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  height: constraints.maxHeight * 0.5 * 0.26,
+                  width: constraints.maxHeight * 0.5 * 0.26,
+                  decoration: ShapeDecoration(
+                    shape: CircleBorder(),
+                    color: Theme.of(context).accentColor,
+                  ),
+                  child: BlocBuilder<CurrencyBloc, CurrencyState>(
+                    builder: (context, state) => Icon(
+                      state.isTop == null
+                          ? null
+                          : state.isTop
+                              ? Icons.arrow_downward
+                              : Icons.arrow_upward,
+                      size: constraints.maxHeight * 0.5 * 0.2,
+                      color: Theme.of(context).accentIconTheme.color,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

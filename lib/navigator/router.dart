@@ -47,17 +47,6 @@ class Router {
           settings: settings,
           fullscreenDialog: true,
         );
-      // case Router.settingPage:
-      //   final typedArgs =
-      //       args as AdditionPageArguments ?? AdditionPageArguments();
-      //   return MaterialPageRoute<dynamic>(
-      //     builder: (_) => AdditionPage(
-      //       key: typedArgs.key,
-      //       number: typedArgs.number,
-      //     ),
-      //     settings: settings,
-      //     fullscreenDialog: true,
-      //   );
       default:
         return unknownRoutePage(settings.name);
     }

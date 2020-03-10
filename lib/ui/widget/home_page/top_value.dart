@@ -53,7 +53,7 @@ class TopValue extends StatelessWidget {
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(
-                          top: constraints.maxHeight * 0.2,
+                          top: constraints.maxHeight * 0.15,
                         ),
                         child: Material(
                           color: Colors.transparent,
@@ -75,56 +75,60 @@ class TopValue extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Flexible(
-                              fit: FlexFit.loose,
-                              child: Material(
-                                color: Colors.transparent,
-                                child: InkWell(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  onTap: () => show(context, constraints, true),
-                                  onLongPress: () =>
-                                      _onLongPressed(context, curS),
-                                  child: AutoSizeText(
-                                    curS.value.toString().startsWith('0.')
-                                        ? curS.value.toString().length < 4
-                                            ? '${curS.value.toString().substring(0, 3)}'
-                                            : '${curS.value.toString().substring(0, 4)}'
-                                        : curS.value
-                                                .toStringAsFixed(1)
-                                                .contains('.0')
-                                            ? '${curS.value.toStringAsFixed(1)}'
-                                            : '${curS.value.toStringAsFixed(2)}',
-                                    maxLines: 1,
-                                    minFontSize: 12.0,
-                                    style: Theme.of(context)
-                                        .primaryTextTheme
-                                        .headline1,
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Flexible(
+                                fit: FlexFit.loose,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    onTap: () =>
+                                        show(context, constraints, true),
+                                    onLongPress: () =>
+                                        _onLongPressed(context, curS),
+                                    child: AutoSizeText(
+                                      curS.value.toString().startsWith('0.')
+                                          ? curS.value.toString().length < 4
+                                              ? '${curS.value.toString().substring(0, 3)}'
+                                              : '${curS.value.toString().substring(0, 4)}'
+                                          : curS.value
+                                                  .toStringAsFixed(1)
+                                                  .contains('.0')
+                                              ? '${curS.value.toStringAsFixed(1)}'
+                                              : '${curS.value.toStringAsFixed(2)}',
+                                      maxLines: 1,
+                                      minFontSize: 12.0,
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .headline1,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            horizontalSpaceTiny,
-                            Text(
-                              '${curS.symbol}',
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headline5
-                                  .copyWith(
-                                    color: Theme.of(context)
-                                        .primaryTextTheme
-                                        .headline5
-                                        .color
-                                        .withOpacity(0.6),
-                                  ),
-                            ),
-                          ],
+                              horizontalSpaceTiny,
+                              Text(
+                                '${curS.symbol}',
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline5
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .primaryTextTheme
+                                          .headline5
+                                          .color
+                                          .withOpacity(0.6),
+                                    ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Padding(
@@ -149,7 +153,7 @@ class TopValue extends StatelessWidget {
                   ),
                 );
               } else {
-                return Container();
+                return Offstage();
               }
             },
           ),
