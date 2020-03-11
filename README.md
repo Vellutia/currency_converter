@@ -4,9 +4,9 @@ Personal project with learning purposes.
 
 Powered by:
 
-- [pub.dev: flutter_bloc] - A predictable state management library that helps implement the BLoC design pattern.(https://pub.dev/packages/flutter_bloc)
-- [CoinAPI] - all cryptocurrency exchanges integrated under a single API(https://www.coinapi.io/)
-- [exchangeratesapi] - Foreign exchange rates API with currency conversion(https://exchangeratesapi.io/)
+- [pub.dev: flutter_bloc](https://pub.dev/packages/flutter_bloc) - A predictable state management library that helps implement the BLoC design pattern.
+- [CoinAPI](https://www.coinapi.io/) - all cryptocurrency exchanges integrated under a single API
+- [exchangeratesapi](https://exchangeratesapi.io/) - Foreign exchange rates API with currency conversion
 
 Design clone of
 
