@@ -1,6 +1,11 @@
 # currency_converter
 
 Personal project with learning purposes.
+Powered by:
+
+- [pub.dev: flutter_bloc](https://pub.dev/packages/flutter_bloc)
+- [CoinAPI](https://www.coinapi.io/)
+- [exchangeratesapi](https://exchangeratesapi.io/)
 
 ## Getting Started
 
