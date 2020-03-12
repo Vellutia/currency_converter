@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import '../../locator.dart';
@@ -92,7 +93,10 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
     ChangeNameTop event,
   ) async* {
     if (state is CurrencyLoaded) {
-      Router.navigator.pop();
+      Router.navigator.pushNamedAndRemoveUntil(
+        Router.homePage,
+        (Route<dynamic> route) => false,
+      );
       final rates = await _mapChangeNameTopRates(event);
       final topValue = (state as CurrencyLoaded).topValue.copyWith(
             id: event.currency.currencyId,
@@ -116,7 +120,10 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
     ChangeNameBottom event,
   ) async* {
     if (state is CurrencyLoaded) {
-      Router.navigator.pop();
+      Router.navigator.pushNamedAndRemoveUntil(
+        Router.homePage,
+        (Route<dynamic> route) => false,
+      );
       final rates = await _mapChangeNameBottomRates(event);
       final topValue = (state as CurrencyLoaded).topValue.copyWith(
             value: (state as CurrencyLoaded).bottomValue.value * rates,

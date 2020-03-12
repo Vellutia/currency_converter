@@ -8,7 +8,12 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Text('Setting')),
+        appBar: AppBar(
+          title: Text(
+            'Setting',
+            style: Theme.of(context).primaryTextTheme.headline6,
+          ),
+        ),
         body: ListView(
           children: <Widget>[
             BlocBuilder<ThemeBloc, ThemeState>(

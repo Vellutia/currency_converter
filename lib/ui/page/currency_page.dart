@@ -1,3 +1,4 @@
+import 'package:currency_converter/ui/widget/currency_page/currency_search.dart';
 import 'package:flutter/material.dart';
 
 import '../../navigator/router.dart';
@@ -26,16 +27,30 @@ class CurrencyPage extends StatelessWidget {
           iconTheme: isTop
               ? Theme.of(context).primaryIconTheme
               : Theme.of(context).accentIconTheme,
-          leading: Builder(
-            builder: (BuildContext context) => Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () => Router.navigator.pop(),
-                tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+          actionsIconTheme: isTop
+              ? Theme.of(context).primaryIconTheme
+              : Theme.of(context).accentIconTheme,
+          title: Text(
+            'Currency',
+            style: isTop
+                ? Theme.of(context).primaryTextTheme.headline6
+                : Theme.of(context).accentTextTheme.headline6,
+          ),
+          actions: <Widget>[
+            Builder(
+              builder: (BuildContext context) => Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () => showSearch(
+                    context: context,
+                    delegate: CurrencySearch(isTop),
+                  ),
+                  tooltip: MaterialLocalizations.of(context).searchFieldLabel,
+                ),
               ),
             ),
-          ),
+          ],
         ),
         body: CurrencyListview(
           isTop: isTop,

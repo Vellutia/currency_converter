@@ -39,6 +39,7 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
           primaryIconTheme: primaryIconTheme,
           accentIconTheme: accentIconTheme,
           floatingActionButtonTheme: floatingTheme,
+          appBarTheme: primaryAppBarTheme,
         ),
       );
 
@@ -57,6 +58,7 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
               primaryIconTheme: darkPrimaryIconTheme,
               accentIconTheme: darkAccentIconTheme,
               floatingActionButtonTheme: darkFloatingTheme,
+              appBarTheme: darkPrimaryAppBarTheme,
             ),
           )
         : ThemeState(
@@ -69,6 +71,7 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
               primaryIconTheme: primaryIconTheme,
               accentIconTheme: accentIconTheme,
               floatingActionButtonTheme: floatingTheme,
+              appBarTheme: primaryAppBarTheme,
             ),
           );
   }
@@ -87,6 +90,7 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
                 primaryIconTheme: primaryIconTheme,
                 accentIconTheme: accentIconTheme,
                 floatingActionButtonTheme: floatingTheme,
+                appBarTheme: primaryAppBarTheme,
               ),
             )
           : ThemeState(
@@ -99,6 +103,7 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
                 primaryIconTheme: darkPrimaryIconTheme,
                 accentIconTheme: darkAccentIconTheme,
                 floatingActionButtonTheme: darkFloatingTheme,
+                appBarTheme: darkPrimaryAppBarTheme,
               ),
             );
     } catch (_) {
@@ -119,6 +124,7 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
             primaryIconTheme: primaryIconTheme,
             accentIconTheme: accentIconTheme,
             floatingActionButtonTheme: floatingTheme,
+            appBarTheme: primaryAppBarTheme,
           ),
         ));
 

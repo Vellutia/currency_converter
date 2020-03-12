@@ -16,9 +16,9 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   setupLocator();
-  BlocSupervisor.delegate =
-      SimpleBlocDelegate(await HydratedBlocStorage.getInstance());
-  // BlocSupervisor.delegate = await HydratedBlocDelegate.build();
+  // BlocSupervisor.delegate =
+  //     SimpleBlocDelegate(await HydratedBlocStorage.getInstance());
+  BlocSupervisor.delegate = await HydratedBlocDelegate.build();
 
   runApp(MultiBlocProvider(
     providers: [

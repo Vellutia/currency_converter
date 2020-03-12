@@ -81,6 +81,13 @@ const TextTheme accentTextTheme = TextTheme(
   ),
 );
 
+const AppBarTheme primaryAppBarTheme = AppBarTheme(
+  color: primaryColor,
+  actionsIconTheme: primaryIconTheme,
+  iconTheme: primaryIconTheme,
+  textTheme: accentTextTheme,
+);
+
 const IconThemeData primaryIconTheme = IconThemeData(
   color: accentColor,
 );
@@ -174,6 +181,13 @@ const TextTheme darkAccentTextTheme = TextTheme(
   subtitle2: TextStyle(
     color: darkPrimaryColor,
   ),
+);
+
+const AppBarTheme darkPrimaryAppBarTheme = AppBarTheme(
+  color: darkPrimaryColor,
+  actionsIconTheme: darkPrimaryIconTheme,
+  iconTheme: darkPrimaryIconTheme,
+  textTheme: darkPrimaryTextTheme,
 );
 
 const IconThemeData darkPrimaryIconTheme = IconThemeData(
