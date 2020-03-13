@@ -34,6 +34,10 @@ class Currency extends Equatable implements CurrencyList {
       };
 
   @override
-  List<Object> get props =>
-      [currencyId, currencyName, currencySymbol, isCrypto];
+  List<Object> get props => [
+        currencyId,
+        currencyName,
+        currencySymbol,
+        isCrypto,
+      ];
 }
