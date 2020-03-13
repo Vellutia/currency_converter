@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/feature/currency_bloc.dart';
+import '../../../bloc/data/recent_bloc.dart';
 import '../../../constant/currency_list_const.dart';
 import '../../../model/currency_list.dart';
 
@@ -14,7 +15,11 @@ class CurrencySearch extends SearchDelegate {
       .map((e) => e as Curr)
       .toList();
 
-  CurrencySearch(this.isTop);
+  CurrencySearch(this.isTop)
+      : super(
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.none,
+        );
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -57,18 +62,49 @@ class CurrencySearch extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggestion = query.isEmpty
-        ? convertedCurrency.toList()
-        : convertedCurrency
-            .where(
-              (e) => e.currencyName.toLowerCase().contains(query.toLowerCase()),
-            )
-            .toList();
+    List<Curr> suggestions() {
+      if (query.isEmpty) {
+        if (BlocProvider.of<RecentBloc>(context).state.isEmpty) {
+          return convertedCurrency;
+        } else {
+          return BlocProvider.of<RecentBloc>(context).state;
+        }
+      } else {
+        if (BlocProvider.of<RecentBloc>(context).state.any((e) =>
+            e.currencyName.toLowerCase().contains(query.toLowerCase()))) {
+          final listFromBloc = BlocProvider.of<RecentBloc>(context)
+              .state
+              .where((e) =>
+                  e.currencyName.toLowerCase().contains(query.toLowerCase()))
+              .toList();
+
+          final listFromConst = convertedCurrency
+              .where((e) =>
+                  e.currencyName.toLowerCase().contains(query.toLowerCase()))
+              .toList();
+
+          return (listFromBloc + listFromConst).toSet().toList();
+        } else {
+          return convertedCurrency
+              .where(
+                (e) =>
+                    e.currencyName.toLowerCase().contains(query.toLowerCase()),
+              )
+              .toList();
+        }
+      }
+    }
+
+    final suggestion = suggestions();
 
     return ListView.builder(
       itemCount: suggestion.length,
       itemBuilder: (context, index) => ListTile(
-        leading: Icon(Icons.search),
+        leading: query.isEmpty
+            ? BlocProvider.of<RecentBloc>(context).state.isEmpty
+                ? Icon(Icons.search)
+                : Icon(Icons.history)
+            : Icon(Icons.search),
         title: RichText(
           text: TextSpan(
             children: highlightOccurrences(
@@ -88,11 +124,15 @@ class CurrencySearch extends SearchDelegate {
             onPressed: () => query = suggestion[index].currencyName,
           ),
         ),
-        onTap: isTop
-            ? () => BlocProvider.of<CurrencyBloc>(context)
-                .add(ChangeNameTop(currency: suggestion[index]))
-            : () => BlocProvider.of<CurrencyBloc>(context)
-                .add(ChangeNameBottom(currency: suggestion[index])),
+        onTap: () {
+          BlocProvider.of<RecentBloc>(context)
+              .add(RecentAdd(curr: suggestion[index]));
+          isTop
+              ? BlocProvider.of<CurrencyBloc>(context)
+                  .add(ChangeNameTop(currency: suggestion[index]))
+              : BlocProvider.of<CurrencyBloc>(context)
+                  .add(ChangeNameBottom(currency: suggestion[index]));
+        },
       ),
     );
   }

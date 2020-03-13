@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/data/position_bloc.dart';
+import '../bloc/data/recent_bloc.dart';
 import '../locator.dart';
 import '../ui/page/currency_page.dart';
 import '../ui/page/home_page.dart';
@@ -37,8 +38,12 @@ class Router {
         final typedArgs =
             args as CurrencyPageArguments ?? CurrencyPageArguments();
         return MaterialPageRoute<dynamic>(
-          builder: (_) => BlocProvider.value(
-            value: _positionBloc,
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: _positionBloc,
+              ),
+            ],
             child: CurrencyPage(
               key: typedArgs.key,
               isTop: typedArgs.isTop,

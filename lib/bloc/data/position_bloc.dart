@@ -16,7 +16,7 @@ class PositionBloc extends HydratedBloc<double, double> {
   @override
   double fromJson(Map<String, dynamic> json) {
     try {
-      return json['position'];
+      return json['position'] as double;
     } catch (_) {
       return null;
     }

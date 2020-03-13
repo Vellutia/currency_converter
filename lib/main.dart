@@ -6,6 +6,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import 'bloc/data/dial_number_bloc.dart';
 import 'bloc/feature/currency_bloc.dart';
+import 'bloc/data/recent_bloc.dart';
 import 'bloc/global/theme_bloc.dart';
 import 'locator.dart';
 import 'navigator/router.dart';
@@ -30,6 +31,9 @@ Future<void> main() async {
       ),
       BlocProvider<DialNumberBloc>(
         create: (context) => DialNumberBloc(),
+      ),
+      BlocProvider<RecentBloc>(
+        create: (context) => RecentBloc(),
       ),
     ],
     child: MyApp(),
