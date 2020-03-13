@@ -1,4 +1,3 @@
-import 'package:currency_converter/bloc_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +5,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import 'bloc/data/dial_number_bloc.dart';
 import 'bloc/feature/currency_bloc.dart';
-import 'bloc/data/recent_bloc.dart';
+import 'bloc/feature/recent_bloc.dart';
 import 'bloc/global/theme_bloc.dart';
 import 'locator.dart';
 import 'navigator/router.dart';

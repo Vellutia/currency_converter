@@ -1,18 +1,18 @@
 import 'dart:math' as math;
 
+import 'package:currency_converter/bloc/feature/recent_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/feature/currency_bloc.dart';
-import '../../../bloc/data/recent_bloc.dart';
 import '../../../constant/currency_list_const.dart';
 import '../../../model/currency_list.dart';
 
 class CurrencySearch extends SearchDelegate {
   final bool isTop;
   final convertedCurrency = currencyList
-      .where((e) => e is Currency || e is CurrencyCrypto)
-      .map((e) => e as Curr)
+      .where((e) => e is Currency)
+      .map((e) => e as Currency)
       .toList();
 
   CurrencySearch(this.isTop)
@@ -62,18 +62,19 @@ class CurrencySearch extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<Curr> suggestions() {
+    final _recentBloc = BlocProvider.of<RecentBloc>(context).state as Recent;
+
+    List<Currency> suggestions() {
       if (query.isEmpty) {
-        if (BlocProvider.of<RecentBloc>(context).state.isEmpty) {
+        if (_recentBloc.listCurr.isEmpty) {
           return convertedCurrency;
         } else {
-          return BlocProvider.of<RecentBloc>(context).state;
+          return _recentBloc.listCurr;
         }
       } else {
-        if (BlocProvider.of<RecentBloc>(context).state.any((e) =>
+        if (_recentBloc.listCurr.any((e) =>
             e.currencyName.toLowerCase().contains(query.toLowerCase()))) {
-          final listFromBloc = BlocProvider.of<RecentBloc>(context)
-              .state
+          final listFromBloc = _recentBloc.listCurr
               .where((e) =>
                   e.currencyName.toLowerCase().contains(query.toLowerCase()))
               .toList();
@@ -101,7 +102,7 @@ class CurrencySearch extends SearchDelegate {
       itemCount: suggestion.length,
       itemBuilder: (context, index) => ListTile(
         leading: query.isEmpty
-            ? BlocProvider.of<RecentBloc>(context).state.isEmpty
+            ? _recentBloc.listCurr.isEmpty
                 ? Icon(Icons.search)
                 : Icon(Icons.history)
             : Icon(Icons.search),

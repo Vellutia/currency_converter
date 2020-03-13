@@ -6,7 +6,7 @@ import '../../../constant/ui_helper.dart';
 import '../../../model/currency_list.dart';
 
 class CurrencyTile extends StatelessWidget {
-  final Curr item;
+  final Currency item;
   final bool isTop;
 
   const CurrencyTile({
@@ -18,7 +18,7 @@ class CurrencyTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      dense: item is CurrencyCrypto ? false : true,
+      dense: item.isCrypto ? false : true,
       title: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,

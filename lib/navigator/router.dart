@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/data/position_bloc.dart';
-import '../bloc/data/recent_bloc.dart';
 import '../locator.dart';
 import '../ui/page/currency_page.dart';
 import '../ui/page/home_page.dart';

@@ -1,8 +1,7 @@
-import 'package:currency_converter/ui/widget/currency_page/currency_search.dart';
 import 'package:flutter/material.dart';
 
-import '../../navigator/router.dart';
 import '../widget/currency_page/currency_listview.dart';
+import '../widget/currency_page/currency_search.dart';
 
 class CurrencyPage extends StatelessWidget {
   final bool isTop;

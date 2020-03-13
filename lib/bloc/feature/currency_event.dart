@@ -10,7 +10,7 @@ abstract class CurrencyEvent extends Equatable {
 class InitCurrency extends CurrencyEvent {}
 
 class ChangeNameTop extends CurrencyEvent {
-  final Curr currency;
+  final Currency currency;
 
   const ChangeNameTop({this.currency});
 
@@ -19,7 +19,7 @@ class ChangeNameTop extends CurrencyEvent {
 }
 
 class ChangeNameBottom extends CurrencyEvent {
-  final Curr currency;
+  final Currency currency;
 
   const ChangeNameBottom({this.currency});
 

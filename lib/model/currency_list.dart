@@ -8,45 +8,32 @@ class Category implements CurrencyList {
   const Category(this.category);
 }
 
-abstract class Curr implements CurrencyList {
-  final String currencyId;
-  final String currencyName;
-  final String currencySymbol;
+class Currency extends Equatable implements CurrencyList {
+  final String currencyId, currencyName, currencySymbol;
+  final bool isCrypto;
 
-  const Curr(this.currencyId, this.currencyName, this.currencySymbol);
-}
-
-class Currency extends Curr {
-  const Currency(String currencyId, String currencyName, String currencySymbol)
-      : super(currencyId, currencyName, currencySymbol);
+  const Currency(
+    this.currencyId,
+    this.currencyName,
+    this.currencySymbol,
+    this.isCrypto,
+  );
 
   factory Currency.fromJson(Map<String, dynamic> json) => Currency(
         json['currencyId'],
         json['currencyName'],
         json['currencySymbol'],
+        json['isCrypto'],
       );
 
   Map<String, dynamic> toJson() => {
         'currencyId': currencyId,
         'currencyName': currencyName,
         'currencySymbol': currencySymbol,
+        'isCrypto': isCrypto,
       };
-}
 
-class CurrencyCrypto extends Curr {
-  const CurrencyCrypto(
-      String currencyId, String currencyName, String currencySymbol)
-      : super(currencyId, currencyName, currencySymbol);
-
-  factory CurrencyCrypto.fromJson(Map<String, dynamic> json) => CurrencyCrypto(
-        json['currencyId'],
-        json['currencyName'],
-        json['currencySymbol'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'currencyId': currencyId,
-        'currencyName': currencyName,
-        'currencySymbol': currencySymbol,
-      };
+  @override
+  List<Object> get props =>
+      [currencyId, currencyName, currencySymbol, isCrypto];
 }

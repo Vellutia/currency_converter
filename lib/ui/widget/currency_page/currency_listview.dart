@@ -49,13 +49,11 @@ class _CurrencyListviewState extends State<CurrencyListview> {
             item: item,
             isTop: widget.isTop,
           );
-        } else if (item is Currency || item is CurrencyCrypto) {
+        } else {
           return CurrencyTile(
             item: item,
             isTop: widget.isTop,
           );
-        } else {
-          return Container();
         }
       },
     );

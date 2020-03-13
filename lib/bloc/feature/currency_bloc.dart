@@ -244,7 +244,7 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
   }
 
   Future<double> _mapChangeNameTopRates(ChangeNameTop event) async {
-    return (event.currency is Currency &&
+    return (!event.currency.isCrypto &&
             (state as CurrencyLoaded).bottomValue.isCurr)
         ? await _ratesRepository.fetchRates(
             '${event.currency.currencyId}',
@@ -257,7 +257,7 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
   }
 
   Future<double> _mapChangeNameBottomRates(ChangeNameBottom event) async {
-    return (event.currency is Currency &&
+    return (!event.currency.isCrypto &&
             (state as CurrencyLoaded).topValue.isCurr)
         ? await _ratesRepository.fetchRates(
             '${event.currency.currencyId}',
