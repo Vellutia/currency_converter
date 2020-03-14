@@ -9,3 +9,9 @@ class Recent extends RecentState {
 
   const Recent(this.listCurr);
 }
+
+class Removed extends RecentState {
+  final List<Currency> listCurr;
+
+  const Removed(this.listCurr);
+}

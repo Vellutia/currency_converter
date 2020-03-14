@@ -87,54 +87,64 @@ class CurrencySearch extends SearchDelegate {
 
           return (listFromBloc + listFromConst).toSet().toList();
         } else {
-          return convertedCurrency
+          final listFromConst = convertedCurrency
               .where(
                 (e) =>
                     e.currencyName.toLowerCase().contains(query.toLowerCase()),
               )
               .toList();
+
+          return listFromConst;
         }
       }
     }
 
     final suggestion = suggestions();
 
-    return ListView.builder(
-      itemCount: suggestion.length,
-      itemBuilder: (context, index) => ListTile(
-        leading: query.isEmpty
-            ? _recentBloc.listCurr.isEmpty
-                ? Icon(Icons.search)
-                : Icon(Icons.history)
-            : Icon(Icons.search),
-        title: RichText(
-          text: TextSpan(
-            children: highlightOccurrences(
-              suggestion[index].currencyName,
-              query,
-              Theme.of(context).textTheme.subtitle1,
+    return BlocBuilder<RecentBloc, RecentState>(
+      builder: (context, state) => ListView.builder(
+        itemCount: suggestion.length,
+        itemBuilder: (context, index) => ListTile(
+          leading: query.isEmpty
+              ? _recentBloc.listCurr.isEmpty
+                  ? Icon(Icons.search)
+                  : Icon(Icons.history)
+              : Icon(Icons.search),
+          title: RichText(
+            text: TextSpan(
+              children: highlightOccurrences(
+                suggestion[index].currencyName,
+                query,
+                Theme.of(context).textTheme.subtitle1,
+              ),
+              style: Theme.of(context).textTheme.subtitle1.copyWith(
+                    color: Colors.grey,
+                  ),
             ),
-            style: Theme.of(context).textTheme.subtitle1.copyWith(
-                  color: Colors.grey,
-                ),
           ),
-        ),
-        trailing: Transform.rotate(
-          angle: 270 * math.pi / 180,
-          child: IconButton(
-            icon: Icon(Icons.call_made),
-            onPressed: () => query = suggestion[index].currencyName,
+          trailing: Transform.rotate(
+            angle: 270 * math.pi / 180,
+            child: IconButton(
+              icon: Icon(Icons.call_made),
+              onPressed: () => query = suggestion[index].currencyName,
+            ),
           ),
+          onTap: () {
+            BlocProvider.of<RecentBloc>(context)
+                .add(RecentAdd(curr: suggestion[index]));
+            isTop
+                ? BlocProvider.of<CurrencyBloc>(context)
+                    .add(ChangeNameTop(currency: suggestion[index]))
+                : BlocProvider.of<CurrencyBloc>(context)
+                    .add(ChangeNameBottom(currency: suggestion[index]));
+          },
+          onLongPress: () {
+            FocusScope.of(context).unfocus();
+
+            BlocProvider.of<RecentBloc>(context)
+                .add(RecentRemove(curr: suggestion[index]));
+          },
         ),
-        onTap: () {
-          BlocProvider.of<RecentBloc>(context)
-              .add(RecentAdd(curr: suggestion[index]));
-          isTop
-              ? BlocProvider.of<CurrencyBloc>(context)
-                  .add(ChangeNameTop(currency: suggestion[index]))
-              : BlocProvider.of<CurrencyBloc>(context)
-                  .add(ChangeNameBottom(currency: suggestion[index]));
-        },
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:currency_converter/services/dialog_manager.dart';
+import 'package:currency_converter/services/dialog_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,6 +53,12 @@ class _MyAppState extends State<MyApp> {
       builder: (context, state) => MaterialApp(
         theme: state.themeData,
         debugShowCheckedModeBanner: false,
+        builder: (context, child) => Navigator(
+          key: locator<DialogService>().dialogNavigationKey,
+          onGenerateRoute: (settings) => MaterialPageRoute(
+            builder: (context) => DialogManager(child: child),
+          ),
+        ),
         navigatorKey: Router.navigator.key,
         initialRoute: Router.homePage,
         onGenerateRoute: Router.onGenerateRoute,
