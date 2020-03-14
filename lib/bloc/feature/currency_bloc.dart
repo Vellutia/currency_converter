@@ -98,6 +98,7 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
         (Route<dynamic> route) => false,
       );
       final rates = await _mapChangeNameTopRates(event);
+
       final topValue = (state as CurrencyLoaded).topValue.copyWith(
             id: event.currency.currencyId,
             name: event.currency.currencyName,

@@ -116,11 +116,13 @@ class CurrencySearch extends SearchDelegate {
               ),
             ),
             onTap: () {
-              isTop
-                  ? BlocProvider.of<CurrencyBloc>(context)
-                      .add(ChangeNameTop(currency: suggestion[index]))
-                  : BlocProvider.of<CurrencyBloc>(context)
-                      .add(ChangeNameBottom(currency: suggestion[index]));
+              if (isTop) {
+                BlocProvider.of<CurrencyBloc>(context)
+                    .add(ChangeNameTop(currency: suggestion[index]));
+              } else {
+                BlocProvider.of<CurrencyBloc>(context)
+                    .add(ChangeNameBottom(currency: suggestion[index]));
+              }
 
               BlocProvider.of<RecentBloc>(context)
                   .add(RecentAdd(currency: suggestion[index]));
