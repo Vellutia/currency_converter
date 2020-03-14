@@ -21,21 +21,22 @@ class RecentBloc extends HydratedBloc<RecentEvent, RecentState> {
     RecentEvent event,
   ) async* {
     if (event is RecentAdd) {
-      if (state.listCurr.any((e) => e.currencyId == event.curr.currencyId)) {
+      if (state.listCurr
+          .any((e) => e.currencyId == event.currency.currencyId)) {
         yield Recent(state.listCurr
-          ..removeWhere((e) => e.currencyId == event.curr.currencyId)
-          ..insert(0, event.curr));
+          ..removeWhere((e) => e.currencyId == event.currency.currencyId)
+          ..insert(0, event.currency));
       } else {
-        yield Recent(state.listCurr..insert(0, event.curr));
+        yield Recent(state.listCurr..insert(0, event.currency));
       }
     } else if (event is RecentRemove) {
-      final value = await confirm(event.curr);
+      final value = await confirm(event.currency);
 
       if (value) {
         final updatedCurr = state.listCurr
-            .where((e) => e.currencyId != event.curr.currencyId)
+            .where((e) => e.currencyId != event.currency.currencyId)
             .toList();
-        yield Removed(updatedCurr);
+        yield Recent(updatedCurr);
       }
     }
   }

@@ -1,24 +1,24 @@
 part of 'recent_bloc.dart';
 
 abstract class RecentEvent extends Equatable {
-  final Currency curr;
+  final Currency currency;
 
-  const RecentEvent(this.curr);
+  const RecentEvent(this.currency);
 
   @override
-  List<Object> get props => [curr];
+  List<Object> get props => [currency];
 }
 
 class RecentAdd extends RecentEvent {
-  const RecentAdd({Currency curr}) : super(curr);
+  const RecentAdd({Currency currency}) : super(currency);
 
   @override
-  List<Object> get props => [curr];
+  List<Object> get props => [currency];
 }
 
 class RecentRemove extends RecentEvent {
-  const RecentRemove({Currency curr}) : super(curr);
+  const RecentRemove({Currency currency}) : super(currency);
 
   @override
-  List<Object> get props => [curr];
+  List<Object> get props => [currency];
 }

@@ -9,7 +9,3 @@ abstract class RecentState {
 class Recent extends RecentState {
   Recent(List<Currency> listCurr) : super(listCurr);
 }
-
-class Removed extends RecentState {
-  Removed(List<Currency> listCurr) : super(listCurr);
-}

@@ -17,7 +17,8 @@ class Api {
     'Accept': "application/json",
     'Accept-Encoding': "application/gzip"
   };
-  static const apiKey = '085F9A29-8E14-494A-A5B4-8A5A0B0BDF51';
+  // static const apiKey = '085F9A29-8E14-494A-A5B4-8A5A0B0BDF51';
+  static const apiKey = 'D8FE12B8-6847-482C-A2E9-A317F317260D';
   var client = new http.Client();
 
   Future<double> fetchRates(String base, String symbol) async {

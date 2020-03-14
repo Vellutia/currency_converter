@@ -63,7 +63,6 @@ class CurrencySearch extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     return BlocBuilder<RecentBloc, RecentState>(
-      condition: (previous, current) => current is Removed,
       builder: (context, state) {
         final suggestion = query.isEmpty
             ? state.listCurr.isEmpty ? convertedCurrency : state.listCurr
@@ -117,20 +116,23 @@ class CurrencySearch extends SearchDelegate {
               ),
             ),
             onTap: () {
-              BlocProvider.of<RecentBloc>(context)
-                  .add(RecentAdd(curr: suggestion[index]));
               isTop
                   ? BlocProvider.of<CurrencyBloc>(context)
                       .add(ChangeNameTop(currency: suggestion[index]))
                   : BlocProvider.of<CurrencyBloc>(context)
                       .add(ChangeNameBottom(currency: suggestion[index]));
-            },
-            onLongPress: () {
-              FocusScope.of(context).unfocus();
 
               BlocProvider.of<RecentBloc>(context)
-                  .add(RecentRemove(curr: suggestion[index]));
+                  .add(RecentAdd(currency: suggestion[index]));
             },
+            onLongPress: query.isEmpty
+                ? () {
+                    FocusScope.of(context).unfocus();
+
+                    BlocProvider.of<RecentBloc>(context)
+                        .add(RecentRemove(currency: suggestion[index]));
+                  }
+                : () {},
           ),
         );
       },
