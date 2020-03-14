@@ -15,9 +15,8 @@ part 'currency_event.dart';
 part 'currency_state.dart';
 
 class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
-  final RatesRepository _ratesRepository = locator<RatesRepository>();
-  final RatesCryptoRepository _ratesCryptoRepository =
-      locator<RatesCryptoRepository>();
+  final _ratesRepository = locator<RatesRepository>();
+  final _ratesCryptoRepository = locator<RatesCryptoRepository>();
 
   @override
   CurrencyState get initialState =>

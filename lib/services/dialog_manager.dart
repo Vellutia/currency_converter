@@ -25,9 +25,9 @@ class _DialogManagerState extends State<DialogManager> {
     return widget.child;
   }
 
-  void _showDialog(DialogRequest request) {
+  Future<DialogResponse> _showDialog(DialogRequest request) async {
     var isConfirmationDialog = request.cancelTitle != null;
-    showDialog(
+    return await showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
@@ -42,13 +42,15 @@ class _DialogManagerState extends State<DialogManager> {
             FlatButton(
               child: Text(request.cancelTitle),
               onPressed: () {
-                _dialogService.dialogComplete(DialogResponse(confirmed: false));
+                _dialogService.dialogNavigationKey.currentState
+                    .pop(DialogResponse(confirmed: false));
               },
             ),
           FlatButton(
             child: Text(request.buttonTitle),
             onPressed: () {
-              _dialogService.dialogComplete(DialogResponse(confirmed: true));
+              _dialogService.dialogNavigationKey.currentState
+                  .pop(DialogResponse(confirmed: true));
             },
           ),
         ],

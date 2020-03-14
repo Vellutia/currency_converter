@@ -11,7 +11,7 @@ part 'recent_event.dart';
 part 'recent_state.dart';
 
 class RecentBloc extends HydratedBloc<RecentEvent, RecentState> {
-  final DialogService _dialogService = locator<DialogService>();
+  final _dialogService = locator<DialogService>();
 
   @override
   RecentState get initialState => super.initialState ?? Recent(<Currency>[]);
@@ -68,10 +68,10 @@ class RecentBloc extends HydratedBloc<RecentEvent, RecentState> {
     }
   }
 
-  Future<bool> confirm(Currency curr) async {
-    return await _dialogService
+  Future<bool> confirm(Currency currency) {
+    return _dialogService
         .showConfirmationDialog(
-          title: '${curr.currencyName}',
+          title: '${currency.currencyName}',
           cancelTitle: 'CANCEL',
           confirmationTitle: 'REMOVE',
           description: 'Remove from search history?',
