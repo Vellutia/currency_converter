@@ -1,11 +1,10 @@
-import 'dart:collection';
 import 'dart:math' as math;
 
-import 'package:currency_converter/bloc/feature/recent_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/feature/currency_bloc.dart';
+import '../../../bloc/feature/recent_bloc.dart';
 import '../../../constant/currency_list_const.dart';
 import '../../../model/currency_list.dart';
 
@@ -63,89 +62,78 @@ class CurrencySearch extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final _recentBloc = BlocProvider.of<RecentBloc>(context).state as Recent;
-
-    List<Currency> suggestions() {
-      if (query.isEmpty) {
-        if (_recentBloc.listCurr.isEmpty) {
-          return convertedCurrency;
-        } else {
-          return _recentBloc.listCurr;
-        }
-      } else {
-        if (_recentBloc.listCurr.any((e) =>
-            e.currencyName.toLowerCase().contains(query.toLowerCase()))) {
-          final listFromBloc = _recentBloc.listCurr
-              .where((e) =>
-                  e.currencyName.toLowerCase().contains(query.toLowerCase()))
-              .toList();
-
-          final listFromConst = convertedCurrency
-              .where((e) =>
-                  e.currencyName.toLowerCase().contains(query.toLowerCase()))
-              .toList();
-
-          return (listFromBloc + listFromConst).toSet().toList();
-        } else {
-          final listFromConst = convertedCurrency
-              .where(
-                (e) =>
-                    e.currencyName.toLowerCase().contains(query.toLowerCase()),
-              )
-              .toList();
-
-          return listFromConst;
-        }
-      }
-    }
-
-    final suggestion = suggestions();
-
     return BlocBuilder<RecentBloc, RecentState>(
-      builder: (context, state) => ListView.builder(
-        itemCount: suggestion.length,
-        itemBuilder: (context, index) => ListTile(
-          leading: query.isEmpty
-              ? _recentBloc.listCurr.isEmpty
-                  ? Icon(Icons.search)
-                  : Icon(Icons.history)
-              : Icon(Icons.search),
-          title: RichText(
-            text: TextSpan(
-              children: highlightOccurrences(
-                suggestion[index].currencyName,
-                query,
-                Theme.of(context).textTheme.subtitle1,
-              ),
-              style: Theme.of(context).textTheme.subtitle1.copyWith(
-                    color: Colors.grey,
-                  ),
-            ),
-          ),
-          trailing: Transform.rotate(
-            angle: 270 * math.pi / 180,
-            child: IconButton(
-              icon: Icon(Icons.call_made),
-              onPressed: () => query = suggestion[index].currencyName,
-            ),
-          ),
-          onTap: () {
-            BlocProvider.of<RecentBloc>(context)
-                .add(RecentAdd(curr: suggestion[index]));
-            isTop
-                ? BlocProvider.of<CurrencyBloc>(context)
-                    .add(ChangeNameTop(currency: suggestion[index]))
-                : BlocProvider.of<CurrencyBloc>(context)
-                    .add(ChangeNameBottom(currency: suggestion[index]));
-          },
-          onLongPress: () {
-            FocusScope.of(context).unfocus();
+      condition: (previous, current) => current is Removed,
+      builder: (context, state) {
+        final suggestion = query.isEmpty
+            ? state.listCurr.isEmpty ? convertedCurrency : state.listCurr
+            : state.listCurr.any((e) =>
+                    e.currencyName.toLowerCase().contains(query.toLowerCase()))
+                ? ((state.listCurr
+                            .where((e) => e.currencyName
+                                .toLowerCase()
+                                .contains(query.toLowerCase()))
+                            .toList()) +
+                        (convertedCurrency
+                            .where((e) => e.currencyName
+                                .toLowerCase()
+                                .contains(query.toLowerCase()))
+                            .toList()))
+                    .toSet()
+                    .toList()
+                : convertedCurrency
+                    .where(
+                      (e) => e.currencyName
+                          .toLowerCase()
+                          .contains(query.toLowerCase()),
+                    )
+                    .toList();
 
-            BlocProvider.of<RecentBloc>(context)
-                .add(RecentRemove(curr: suggestion[index]));
-          },
-        ),
-      ),
+        return ListView.builder(
+          itemCount: suggestion.length,
+          itemBuilder: (context, index) => ListTile(
+            leading: query.isEmpty
+                ? state.listCurr.isEmpty
+                    ? Icon(Icons.search)
+                    : Icon(Icons.history)
+                : Icon(Icons.search),
+            title: RichText(
+              text: TextSpan(
+                children: highlightOccurrences(
+                  suggestion[index].currencyName,
+                  query,
+                  Theme.of(context).textTheme.subtitle1,
+                ),
+                style: Theme.of(context).textTheme.subtitle1.copyWith(
+                      color: Colors.grey,
+                    ),
+              ),
+            ),
+            trailing: Transform.rotate(
+              angle: 270 * math.pi / 180,
+              child: IconButton(
+                icon: Icon(Icons.call_made),
+                onPressed: () => query = suggestion[index].currencyName,
+              ),
+            ),
+            onTap: () {
+              BlocProvider.of<RecentBloc>(context)
+                  .add(RecentAdd(curr: suggestion[index]));
+              isTop
+                  ? BlocProvider.of<CurrencyBloc>(context)
+                      .add(ChangeNameTop(currency: suggestion[index]))
+                  : BlocProvider.of<CurrencyBloc>(context)
+                      .add(ChangeNameBottom(currency: suggestion[index]));
+            },
+            onLongPress: () {
+              FocusScope.of(context).unfocus();
+
+              BlocProvider.of<RecentBloc>(context)
+                  .add(RecentRemove(curr: suggestion[index]));
+            },
+          ),
+        );
+      },
     );
   }
 

@@ -1,5 +1,3 @@
-import 'package:currency_converter/services/dialog_manager.dart';
-import 'package:currency_converter/services/dialog_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +9,8 @@ import 'bloc/feature/recent_bloc.dart';
 import 'bloc/global/theme_bloc.dart';
 import 'locator.dart';
 import 'navigator/router.dart';
+import 'services/dialog_manager.dart';
+import 'services/dialog_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

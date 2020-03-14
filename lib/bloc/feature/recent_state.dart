@@ -1,17 +1,15 @@
 part of 'recent_bloc.dart';
 
 abstract class RecentState {
-  const RecentState();
+  final List<Currency> listCurr;
+
+  const RecentState(this.listCurr);
 }
 
 class Recent extends RecentState {
-  final List<Currency> listCurr;
-
-  const Recent(this.listCurr);
+  Recent(List<Currency> listCurr) : super(listCurr);
 }
 
 class Removed extends RecentState {
-  final List<Currency> listCurr;
-
-  const Removed(this.listCurr);
+  Removed(List<Currency> listCurr) : super(listCurr);
 }

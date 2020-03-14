@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:currency_converter/services/dialog_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import '../../locator.dart';
 import '../../model/currency_list.dart';
+import '../../services/dialog_service.dart';
 
 part 'recent_event.dart';
 part 'recent_state.dart';
@@ -21,24 +21,21 @@ class RecentBloc extends HydratedBloc<RecentEvent, RecentState> {
     RecentEvent event,
   ) async* {
     if (event is RecentAdd) {
-      if ((state as Recent)
-          .listCurr
-          .any((e) => e.currencyId == event.curr.currencyId)) {
-        yield Recent((state as Recent).listCurr
+      if (state.listCurr.any((e) => e.currencyId == event.curr.currencyId)) {
+        yield Recent(state.listCurr
           ..removeWhere((e) => e.currencyId == event.curr.currencyId)
           ..insert(0, event.curr));
       } else {
-        yield Recent((state as Recent).listCurr..insert(0, event.curr));
+        yield Recent(state.listCurr..insert(0, event.curr));
       }
     } else if (event is RecentRemove) {
       final value = await confirm(event.curr);
 
       if (value) {
-        final updatedCurr = (state as Recent)
-            .listCurr
+        final updatedCurr = state.listCurr
             .where((e) => e.currencyId != event.curr.currencyId)
             .toList();
-        yield Recent(updatedCurr);
+        yield Removed(updatedCurr);
       }
     }
   }
@@ -63,7 +60,7 @@ class RecentBloc extends HydratedBloc<RecentEvent, RecentState> {
   @override
   Map<String, dynamic> toJson(RecentState state) {
     try {
-      final recent = (state as Recent).listCurr.map((e) => e.toJson()).toList();
+      final recent = state.listCurr.map((e) => e.toJson()).toList();
       return {'recent': recent};
     } catch (_) {
       return null;

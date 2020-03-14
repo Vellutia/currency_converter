@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:currency_converter/model/dialog_model.dart';
 
 import '../locator.dart';
+import '../model/dialog_model.dart';
 import '../services/dialog_service.dart';
 
 class DialogManager extends StatefulWidget {
