@@ -102,7 +102,7 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
             id: event.currency.currencyId,
             name: event.currency.currencyName,
             symbol: event.currency.currencySymbol,
-            isCurr: event.currency is Currency ? true : false,
+            isCurr: event.currency.isCurr ? true : false,
           );
       final bottomValue = (state as CurrencyLoaded).bottomValue.copyWith(
             value: (state as CurrencyLoaded).topValue.value * rates,
@@ -132,7 +132,7 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
             id: event.currency.currencyId,
             name: event.currency.currencyName,
             symbol: event.currency.currencySymbol,
-            isCurr: event.currency is Currency ? true : false,
+            isCurr: event.currency.isCurr ? true : false,
           );
       final isTop = false;
       yield CurrencyLoaded(
@@ -244,7 +244,7 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
   }
 
   Future<double> _mapChangeNameTopRates(ChangeNameTop event) async {
-    return (!event.currency.isCrypto &&
+    return (event.currency.isCurr &&
             (state as CurrencyLoaded).bottomValue.isCurr)
         ? await _ratesRepository.fetchRates(
             '${event.currency.currencyId}',
@@ -257,8 +257,7 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
   }
 
   Future<double> _mapChangeNameBottomRates(ChangeNameBottom event) async {
-    return (!event.currency.isCrypto &&
-            (state as CurrencyLoaded).topValue.isCurr)
+    return (event.currency.isCurr && (state as CurrencyLoaded).topValue.isCurr)
         ? await _ratesRepository.fetchRates(
             '${event.currency.currencyId}',
             '${(state as CurrencyLoaded).topValue.id}',

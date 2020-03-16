@@ -19,7 +19,7 @@ class CurrencyTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      dense: item.isCrypto ? false : true,
+      dense: item.isCurr ? false : true,
       title: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,

@@ -10,27 +10,27 @@ class Category implements CurrencyList {
 
 class Currency extends Equatable implements CurrencyList {
   final String currencyId, currencyName, currencySymbol;
-  final bool isCrypto;
+  final bool isCurr;
 
   const Currency(
     this.currencyId,
     this.currencyName,
     this.currencySymbol,
-    this.isCrypto,
+    this.isCurr,
   );
 
   factory Currency.fromJson(Map<String, dynamic> json) => Currency(
         json['currencyId'],
         json['currencyName'],
         json['currencySymbol'],
-        json['isCrypto'],
+        json['isCurr'],
       );
 
   Map<String, dynamic> toJson() => {
         'currencyId': currencyId,
         'currencyName': currencyName,
         'currencySymbol': currencySymbol,
-        'isCrypto': isCrypto,
+        'isCurr': isCurr,
       };
 
   @override
@@ -38,6 +38,6 @@ class Currency extends Equatable implements CurrencyList {
         currencyId,
         currencyName,
         currencySymbol,
-        isCrypto,
+        isCurr,
       ];
 }
