@@ -21,24 +21,24 @@ class RecentBloc extends HydratedBloc<RecentEvent, RecentState> {
   Stream<RecentState> mapEventToState(
     RecentEvent event,
   ) async* {
-    if (event is RecentAdd) {
-      final newEvent =
-          RecentCurrency.fromJson((event.currency as ConstCurrency).toJson());
+    final newEvent = event.currency is ConstCurrency
+        ? RecentCurrency.fromJson((event.currency as ConstCurrency).toJson())
+        : event.currency;
 
-      if (state.listCurr.any((e) => e.currencyId == newEvent.currencyId)) {
-        final newState = List.from(state.listCurr)
-          ..removeWhere((e) => e.currencyId == newEvent.currencyId)
-          ..insert(0, newEvent);
-        yield RecentState(newState);
+    if (event is RecentAdd) {
+      if (state.listCurr
+          .any((e) => e.currencyId == event.currency.currencyId)) {
+        yield RecentState(
+          state.listCurr
+            ..removeWhere((e) => e.currencyId == newEvent.currencyId)
+            ..insert(0, newEvent),
+        );
       } else {
         yield RecentState(
           state.listCurr..insert(0, newEvent),
         );
       }
     } else if (event is RecentRemove) {
-      final newEvent =
-          RecentCurrency.fromJson((event.currency as RecentCurrency).toJson());
-
       final value = await confirm(newEvent);
 
       if (value) {
