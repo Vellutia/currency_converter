@@ -1,5 +1,3 @@
-import 'package:equatable/equatable.dart';
-
 abstract class CurrencyList {}
 
 class Category implements CurrencyList {
@@ -8,8 +6,10 @@ class Category implements CurrencyList {
   const Category(this.category);
 }
 
-class Currency extends Equatable implements CurrencyList {
-  final String currencyId, currencyName, currencySymbol;
+abstract class Currency implements CurrencyList {
+  final String currencyId;
+  final String currencyName;
+  final String currencySymbol;
   final bool isCurr;
 
   const Currency(
@@ -19,7 +19,51 @@ class Currency extends Equatable implements CurrencyList {
     this.isCurr,
   );
 
-  factory Currency.fromJson(Map<String, dynamic> json) => Currency(
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+
+    return o is Currency &&
+        o.currencyId == currencyId &&
+        o.currencyName == currencyName &&
+        o.currencySymbol == currencySymbol &&
+        o.isCurr == isCurr;
+  }
+
+  @override
+  int get hashCode {
+    return currencyId.hashCode ^
+        currencyName.hashCode ^
+        currencySymbol.hashCode ^
+        isCurr.hashCode;
+  }
+}
+
+class ConstCurrency extends Currency {
+  const ConstCurrency(
+    String currencyId,
+    String currencyName,
+    String currencySymbol,
+    bool isCurr,
+  ) : super(currencyId, currencyName, currencySymbol, isCurr);
+
+  Map<String, dynamic> toJson() => {
+        'currencyId': currencyId,
+        'currencyName': currencyName,
+        'currencySymbol': currencySymbol,
+        'isCurr': isCurr,
+      };
+}
+
+class RecentCurrency extends Currency {
+  const RecentCurrency(
+    String currencyId,
+    String currencyName,
+    String currencySymbol,
+    bool isCurr,
+  ) : super(currencyId, currencyName, currencySymbol, isCurr);
+
+  factory RecentCurrency.fromJson(Map<String, dynamic> json) => RecentCurrency(
         json['currencyId'],
         json['currencyName'],
         json['currencySymbol'],
@@ -32,12 +76,4 @@ class Currency extends Equatable implements CurrencyList {
         'currencySymbol': currencySymbol,
         'isCurr': isCurr,
       };
-
-  @override
-  List<Object> get props => [
-        currencyId,
-        currencyName,
-        currencySymbol,
-        isCurr,
-      ];
 }

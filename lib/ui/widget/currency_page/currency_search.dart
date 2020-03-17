@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 
-import 'package:currency_converter/services/dialog_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,13 +8,14 @@ import '../../../bloc/feature/recent_bloc.dart';
 import '../../../constant/currency_list_const.dart';
 import '../../../locator.dart';
 import '../../../model/currency_list.dart';
+import '../../../services/dialog_service.dart';
 
 class CurrencySearch extends SearchDelegate {
   final bool isTop;
   final _dialogService = locator<DialogService>();
   final convertedCurrency = currencyList
-      .where((e) => e is Currency)
-      .map((e) => e as Currency)
+      .where((e) => e is ConstCurrency)
+      .map((e) => e as ConstCurrency)
       .toList();
 
   CurrencySearch(this.isTop)
@@ -81,33 +81,29 @@ class CurrencySearch extends SearchDelegate {
               : state.listCurr.any((e) => e.currencyName
                       .toLowerCase()
                       .contains(query.toLowerCase()))
-                  ? ((state.listCurr
-                              .where((e) => e.currencyName
-                                  .toLowerCase()
-                                  .contains(query.toLowerCase()))
-                              .toList()) +
-                          (convertedCurrency
-                              .where((e) => e.currencyName
-                                  .toLowerCase()
-                                  .contains(query.toLowerCase()))
-                              .toList()))
+                  ? ((List<Currency>.from(state.listCurr.where(
+                            (e) => e.currencyName
+                                .toLowerCase()
+                                .contains(query.toLowerCase()),
+                          ))) +
+                          (List<Currency>.from(convertedCurrency.where(
+                            (e) => e.currencyName
+                                .toLowerCase()
+                                .contains(query.toLowerCase()),
+                          ))))
                       .toSet()
                       .toList()
-                  : convertedCurrency
-                      .where(
-                        (e) => e.currencyName
-                            .toLowerCase()
-                            .contains(query.toLowerCase()),
-                      )
-                      .toList();
+                  : List<ConstCurrency>.from(convertedCurrency.where(
+                      (e) => e.currencyName
+                          .toLowerCase()
+                          .contains(query.toLowerCase()),
+                    ));
 
           return ListView.builder(
             itemCount: suggestion.length,
             itemBuilder: (context, index) => ListTile(
-              leading: query.isEmpty
-                  ? state.listCurr.isEmpty
-                      ? Icon(Icons.search)
-                      : Icon(Icons.history)
+              leading: suggestion[index] is RecentCurrency
+                  ? Icon(Icons.history)
                   : Icon(Icons.search),
               title: RichText(
                 text: TextSpan(
@@ -140,7 +136,7 @@ class CurrencySearch extends SearchDelegate {
                 BlocProvider.of<RecentBloc>(context)
                     .add(RecentAdd(currency: suggestion[index]));
               },
-              onLongPress: query.isEmpty
+              onLongPress: suggestion[index] is RecentCurrency
                   ? () {
                       FocusScope.of(context).unfocus();
 

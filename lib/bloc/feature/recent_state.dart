@@ -1,11 +1,10 @@
 part of 'recent_bloc.dart';
 
-abstract class RecentState {
-  final List<Currency> listCurr;
+class RecentState extends Equatable {
+  final List<RecentCurrency> listCurr;
 
   const RecentState(this.listCurr);
-}
 
-class Recent extends RecentState {
-  Recent(List<Currency> listCurr) : super(listCurr);
+  @override
+  List<Object> get props => [listCurr];
 }

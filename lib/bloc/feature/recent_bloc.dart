@@ -14,45 +14,54 @@ class RecentBloc extends HydratedBloc<RecentEvent, RecentState> {
   final _dialogService = locator<DialogService>();
 
   @override
-  RecentState get initialState => super.initialState ?? Recent(<Currency>[]);
+  RecentState get initialState =>
+      super.initialState ?? RecentState(<RecentCurrency>[]);
 
   @override
   Stream<RecentState> mapEventToState(
     RecentEvent event,
   ) async* {
     if (event is RecentAdd) {
-      if (state.listCurr
-          .any((e) => e.currencyId == event.currency.currencyId)) {
-        yield Recent(state.listCurr
-          ..removeWhere((e) => e.currencyId == event.currency.currencyId)
-          ..insert(0, event.currency));
+      final newEvent =
+          RecentCurrency.fromJson((event.currency as ConstCurrency).toJson());
+
+      if (state.listCurr.any((e) => e.currencyId == newEvent.currencyId)) {
+        final newState = List.from(state.listCurr)
+          ..removeWhere((e) => e.currencyId == newEvent.currencyId)
+          ..insert(0, newEvent);
+        yield RecentState(newState);
       } else {
-        yield Recent(state.listCurr..insert(0, event.currency));
+        yield RecentState(
+          state.listCurr..insert(0, newEvent),
+        );
       }
     } else if (event is RecentRemove) {
-      final value = await confirm(event.currency);
+      final newEvent =
+          RecentCurrency.fromJson((event.currency as RecentCurrency).toJson());
+
+      final value = await confirm(newEvent);
 
       if (value) {
         final updatedCurr = state.listCurr
-            .where((e) => e.currencyId != event.currency.currencyId)
+            .where((e) => e.currencyId != newEvent.currencyId)
             .toList();
-        yield Recent(updatedCurr);
+        yield RecentState(updatedCurr);
       }
     }
   }
 
   @override
   RecentState fromJson(Map<String, dynamic> json) {
-    List<Currency> recent = List<Currency>();
+    List<RecentCurrency> recent = List<RecentCurrency>();
 
     try {
       final parsed = json['recent'] as List;
 
       for (var json in parsed) {
-        recent.add(Currency.fromJson(json));
+        recent.add(RecentCurrency.fromJson(json));
       }
 
-      return Recent(recent);
+      return RecentState(recent);
     } catch (_) {
       return null;
     }
@@ -68,7 +77,7 @@ class RecentBloc extends HydratedBloc<RecentEvent, RecentState> {
     }
   }
 
-  Future<bool> confirm(Currency currency) {
+  Future<bool> confirm(RecentCurrency currency) {
     return _dialogService
         .showConfirmationDialog(
           title: '${currency.currencyName}',

@@ -11,14 +11,8 @@ abstract class RecentEvent extends Equatable {
 
 class RecentAdd extends RecentEvent {
   const RecentAdd({Currency currency}) : super(currency);
-
-  @override
-  List<Object> get props => [currency];
 }
 
 class RecentRemove extends RecentEvent {
   const RecentRemove({Currency currency}) : super(currency);
-
-  @override
-  List<Object> get props => [currency];
 }
