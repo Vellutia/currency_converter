@@ -16,8 +16,7 @@ Design clone of
 ## Examples
 
 <pre>
-    <img src="gifs/early_ver.gif" width="250">   
-    <img src="gifs/updated.gif" width="250">
+    <img src="gifs/early_ver.gif" width="250">   <img src="gifs/updated.gif" width="250">
 </pre>
 
 ### Feature
