@@ -55,7 +55,7 @@ class RecentBloc extends HydratedBloc<RecentEvent, RecentState> {
     List<RecentCurrency> recent = List<RecentCurrency>();
 
     try {
-      final parsed = json['recent'] as List;
+      final parsed = json['recent'] as List<Map<String, dynamic>>;
 
       for (var json in parsed) {
         recent.add(RecentCurrency.fromJson(json));
