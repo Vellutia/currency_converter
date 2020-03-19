@@ -1,6 +1,6 @@
 # currency_converter
 
-Personal project with learning purposes.
+Personal project with learning purposes. By building this project I learnt how to separate logic from UI Widgets and repository the clean way, how to integrate an app with public API, how to persist and restore states.
 
 Powered by:
 
