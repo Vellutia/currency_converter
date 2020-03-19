@@ -28,3 +28,9 @@ Design clone of
 - Persistent states
 - Copy to clipboard
 - Dark Mode
+
+## Author
+
+- [Federick Jonathan](https://github.com/Vellutia)
+
+If you find this helpful in any way, please consider give me a ★. Also, don't forget to follow.
