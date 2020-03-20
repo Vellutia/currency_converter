@@ -17,6 +17,7 @@ class Api {
     'Accept': "application/json",
     'Accept-Encoding': "application/gzip"
   };
+  // Get your own API key from CoinAPI - https://www.coinapi.io/
   static const apiKey = 'F792B90B-1CF3-44FA-AA5C-F30B080C30D9';
   var client = new http.Client();
 

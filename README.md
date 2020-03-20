@@ -2,6 +2,8 @@
 
 Personal project with learning purposes. I learnt how to separate logic from UI Widgets and repository the clean way, how to integrate an app with public API, how to persist and restore states.
 
+Get your own API key here [CoinAPI](https://www.coinapi.io/).
+
 Powered by:
 
 - [pub.dev: flutter_bloc](https://pub.dev/packages/flutter_bloc) - A predictable state management library that helps implement the [BLoC design pattern](https://www.didierboelens.com/2018/08/reactive-programming---streams---bloc/).
