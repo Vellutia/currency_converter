@@ -1,3 +1,5 @@
+<img src="images/icon.jpg" width="50">
+
 # currency_converter
 
 Personal project with learning purposes. I learnt how to separate logic from UI Widgets and repository the clean way, how to integrate an app with public API, how to persist and restore states.
