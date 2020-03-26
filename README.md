@@ -55,4 +55,4 @@ Design clone of
 
 - [Federick Jonathan](https://github.com/Vellutia)
 
-If you find this helpful in any way, please consider give me a ★.
+If you find this helpful in any way, please consider give it a ★.
