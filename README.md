@@ -8,14 +8,21 @@ Personal project with learning purposes.
 
 Get your own API key here [CoinAPI](https://www.coinapi.io/).
 
-Powered by:
+### Packages
 
 - [flutter_bloc](https://pub.dev/packages/flutter_bloc) - A predictable state management library that helps implement the [BLoC design pattern](https://www.didierboelens.com/2018/08/reactive-programming---streams---bloc/).
-- [Hydrated Bloc](https://pub.dev/packages/hydrated_bloc) - An extension to the `bloc` state management library which automatically persists and restores `bloc` states, by [Felix Angelov](https://github.com/felangel).
+- [hydrated_bloc](https://pub.dev/packages/hydrated_bloc) - An extension to the `bloc` state management library which automatically persists and restores `bloc` states, by [Felix Angelov](https://github.com/felangel).
+- [equatable](https://pub.dev/packages/equatable) - Simplify Equality Comparisons.
+- [http](https://pub.dev/packages/http) - A composable, Future-based library for making HTTP requests.
+- [get_it](https://pub.dev/packages/get_it) - Simple Service Locator for Dart and Flutter projects with some additional goodies highly inspired by [Splat](https://github.com/reactiveui/splat).
+- [auto_size_text](https://pub.dev/packages/auto_size_text) - Flutter widget that automatically resizes text to fit perfectly within its bounds.
+
+### Powered by
+
 - [CoinAPI](https://www.coinapi.io/) - All cryptocurrency exchanges integrated under a single API.
 - [exchangeratesapi](https://exchangeratesapi.io/) - Foreign exchange rates API with currency conversion.
 
-Design clone of
+### Design clone of
 
 - [Stylish-Currency-Converter-iOS-app](https://dribbble.com/shots/4816296-Stylish-Currency-Converter-iOS-app)
 
