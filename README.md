@@ -1,14 +1,16 @@
 <img src="images/icon.jpg" width="50">
 
+APK Download: https://github.com/Vellutia/currency_converter/releases
+
 # currency_converter
 
-Personal project with learning purposes. I learnt how to separate logic from UI Widgets and repository the clean way, how to integrate an app with public API, how to persist and restore states.
+Personal project with learning purposes.
 
 Get your own API key here [CoinAPI](https://www.coinapi.io/).
 
 Powered by:
 
-- [pub.dev: flutter_bloc](https://pub.dev/packages/flutter_bloc) - A predictable state management library that helps implement the [BLoC design pattern](https://www.didierboelens.com/2018/08/reactive-programming---streams---bloc/).
+- [flutter_bloc](https://pub.dev/packages/flutter_bloc) - A predictable state management library that helps implement the [BLoC design pattern](https://www.didierboelens.com/2018/08/reactive-programming---streams---bloc/).
 - [Hydrated Bloc](https://pub.dev/packages/hydrated_bloc) - An extension to the `bloc` state management library which automatically persists and restores `bloc` states, by [Felix Angelov](https://github.com/felangel).
 - [CoinAPI](https://www.coinapi.io/) - All cryptocurrency exchanges integrated under a single API.
 - [exchangeratesapi](https://exchangeratesapi.io/) - Foreign exchange rates API with currency conversion.
