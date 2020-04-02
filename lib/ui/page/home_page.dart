@@ -1,4 +1,6 @@
+import 'package:currency_converter/model/value.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/feature/currency_bloc.dart';
@@ -18,6 +20,24 @@ class HomePage extends StatelessWidget {
       builder: (context) => DialPad(
         constraints: constraints,
         isTop: isTop,
+      ),
+    );
+  }
+
+  void onLongPressed(BuildContext context, Value curS) {
+    Scaffold.of(context).removeCurrentSnackBar(
+      reason: SnackBarClosedReason.remove,
+    );
+    Clipboard.setData(
+      ClipboardData(text: '${curS.value}'),
+    );
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: SizedBox(
+          height: 24.0,
+          child: Text('Copied to Clipboard.'),
+        ),
+        duration: Duration(seconds: 2),
       ),
     );
   }
@@ -44,9 +64,11 @@ class HomePage extends StatelessWidget {
                 children: <Widget>[
                   TopValue(
                     show: show,
+                    onLongPressed: onLongPressed,
                   ),
                   BottomValue(
                     show: show,
+                    onLongPressed: onLongPressed,
                   ),
                 ],
               ),

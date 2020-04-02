@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/feature/currency_bloc.dart';
@@ -9,30 +8,14 @@ import '../../../model/value.dart';
 import '../../../navigator/router.dart';
 
 class TopValue extends StatelessWidget {
-  final Function show;
+  final void Function(BuildContext, BoxConstraints, bool) show;
+  final void Function(BuildContext, Value) onLongPressed;
 
   const TopValue({
     Key key,
     this.show,
+    this.onLongPressed,
   }) : super(key: key);
-
-  void _onLongPressed(BuildContext context, Value curS) {
-    Scaffold.of(context).removeCurrentSnackBar(
-      reason: SnackBarClosedReason.remove,
-    );
-    Clipboard.setData(
-      ClipboardData(text: '${curS.value}'),
-    );
-    Scaffold.of(context).showSnackBar(
-      SnackBar(
-        content: SizedBox(
-          height: 24.0,
-          child: Text('Copied to Clipboard.'),
-        ),
-        duration: Duration(seconds: 2),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +76,7 @@ class TopValue extends StatelessWidget {
                                     onTap: () =>
                                         show(context, constraints, true),
                                     onLongPress: () =>
-                                        _onLongPressed(context, curS),
+                                        onLongPressed(context, curS),
                                     child: AutoSizeText(
                                       curS.value.toString().startsWith('0.')
                                           ? curS.value.toString().length < 4
