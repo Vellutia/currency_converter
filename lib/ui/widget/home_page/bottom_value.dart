@@ -116,8 +116,8 @@ class BottomValue extends StatelessWidget {
                           color: Colors.transparent,
                           child: InkWell(
                             borderRadius: BorderRadius.circular(18.0),
-                            onTap: () => Router.navigator.pushNamed(
-                              Router.currencyPage,
+                            onTap: () => Routers.navigator.pushNamed(
+                              Routers.currencyPage,
                               arguments: CurrencyPageArguments(isTop: false),
                             ),
                             child: Padding(

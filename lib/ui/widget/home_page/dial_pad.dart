@@ -188,7 +188,7 @@ class _DialPadState extends State<DialPad> {
               color: widget.isTop
                   ? Theme.of(context).primaryIconTheme.color
                   : Theme.of(context).accentIconTheme.color,
-              onPressed: () => Router.navigator.pop(),
+              onPressed: () => Routers.navigator.pop(),
               tooltip: MaterialLocalizations.of(context).backButtonTooltip,
             ),
             verticalSpaceMedium,

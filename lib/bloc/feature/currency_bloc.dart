@@ -92,8 +92,8 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
     ChangeNameTop event,
   ) async* {
     if (state is CurrencyLoaded) {
-      Router.navigator.pushNamedAndRemoveUntil(
-        Router.homePage,
+      Routers.navigator.pushNamedAndRemoveUntil(
+        Routers.homePage,
         (Route<dynamic> route) => false,
       );
       final rates = await _mapChangeNameTopRates(event);
@@ -120,8 +120,8 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
     ChangeNameBottom event,
   ) async* {
     if (state is CurrencyLoaded) {
-      Router.navigator.pushNamedAndRemoveUntil(
-        Router.homePage,
+      Routers.navigator.pushNamedAndRemoveUntil(
+        Routers.homePage,
         (Route<dynamic> route) => false,
       );
       final rates = await _mapChangeNameBottomRates(event);
@@ -147,7 +147,7 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
     ChangeValueTop event,
   ) async* {
     if (state is CurrencyLoaded && event.value.isNotEmpty) {
-      Router.navigator.pop();
+      Routers.navigator.pop();
       final rates = await _mapChangeValueTopRates();
       final topValue = (state as CurrencyLoaded).topValue.copyWith(
             value: double.parse(event.value),
@@ -168,7 +168,7 @@ class CurrencyBloc extends HydratedBloc<CurrencyEvent, CurrencyState> {
     ChangeValueBottom event,
   ) async* {
     if (state is CurrencyLoaded && event.value.isNotEmpty) {
-      Router.navigator.pop();
+      Routers.navigator.pop();
       final rates = await _mapChangeValueBottomRates();
       final topValue = (state as CurrencyLoaded).topValue.copyWith(
             value: double.parse(event.value) * rates,

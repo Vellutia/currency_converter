@@ -59,16 +59,16 @@ class _MyAppState extends State<MyApp> {
             builder: (context) => DialogManager(child: child),
           ),
         ),
-        navigatorKey: Router.navigator.key,
-        initialRoute: Router.homePage,
-        onGenerateRoute: Router.onGenerateRoute,
+        navigatorKey: Routers.navigator.key,
+        initialRoute: Routers.homePage,
+        onGenerateRoute: Routers.onGenerateRoute,
       ),
     );
   }
 
   @override
   void dispose() {
-    Router.dispose();
+    Routers.dispose();
     super.dispose();
   }
 }

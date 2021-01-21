@@ -9,7 +9,7 @@ import '../ui/page/setting_page.dart';
 import 'router_extended.dart';
 import 'router_utils.dart';
 
-class Router {
+class Routers {
   // Route names
   static const homePage = '/';
   static const settingPage = '/setting-page';
@@ -22,18 +22,18 @@ class Router {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
-      case Router.homePage:
+      case Routers.homePage:
         return MaterialPageRoute<dynamic>(
           builder: (_) => HomePage(),
           settings: settings,
         );
-      case Router.settingPage:
+      case Routers.settingPage:
         return MaterialPageRoute<dynamic>(
           builder: (_) => SettingPage(),
           settings: settings,
           fullscreenDialog: true,
         );
-      case Router.currencyPage:
+      case Routers.currencyPage:
         final typedArgs =
             args as CurrencyPageArguments ?? CurrencyPageArguments();
         return MaterialPageRoute<dynamic>(

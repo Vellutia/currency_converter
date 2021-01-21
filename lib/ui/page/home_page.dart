@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
                 Theme.of(context).floatingActionButtonTheme.foregroundColor,
             backgroundColor:
                 Theme.of(context).floatingActionButtonTheme.backgroundColor,
-            onPressed: () => Router.navigator.pushNamed(Router.settingPage),
+            onPressed: () => Routers.navigator.pushNamed(Routers.settingPage),
             child: Icon(Icons.settings),
           ),
           body: Stack(
