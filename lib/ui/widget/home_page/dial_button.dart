@@ -41,6 +41,7 @@ class _DialButtonState extends State<DialButton>
   void initState() {
     super.initState();
     _animationController = AnimationController(
+      vsync: this,
       duration: Duration(milliseconds: 300),
     );
     _colorTween = ColorTween(
