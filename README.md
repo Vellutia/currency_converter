@@ -20,7 +20,7 @@ Get your own API key here [CoinAPI](https://www.coinapi.io/).
 ### Powered by
 
 - [CoinAPI](https://www.coinapi.io/) - All cryptocurrency exchanges integrated under a single API.
-- [exchangeratesapi](https://exchangeratesapi.io/) - Foreign exchange rates API with currency conversion.
+- [exchangerate.host](https://exchangerate.host/#/) - Free foreign exchange & crypto rates API.
 
 ### Design clone of
 
