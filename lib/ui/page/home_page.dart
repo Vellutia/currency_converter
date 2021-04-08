@@ -25,13 +25,13 @@ class HomePage extends StatelessWidget {
   }
 
   void onLongPressed(BuildContext context, Value curS) {
-    Scaffold.of(context).removeCurrentSnackBar(
+    ScaffoldMessenger.of(context).removeCurrentSnackBar(
       reason: SnackBarClosedReason.remove,
     );
     Clipboard.setData(
       ClipboardData(text: '${curS.value}'),
     );
-    Scaffold.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: SizedBox(
           height: 24.0,

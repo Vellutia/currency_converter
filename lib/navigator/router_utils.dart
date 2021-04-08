@@ -21,7 +21,7 @@ PageRoute unknownRoutePage(String routeName) => MaterialPageRoute(
                   style: TextStyle(fontSize: 16),
                 ),
               ),
-              OutlineButton.icon(
+              OutlinedButton.icon(
                 label: Text('Back'),
                 icon: Icon(Icons.arrow_back),
                 onPressed: () => Navigator.of(ctx).pop(),
@@ -63,7 +63,7 @@ PageRoute misTypedArgsRoute<T>(Object args) {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16.0),
-            OutlineButton.icon(
+            OutlinedButton.icon(
               label: Text('Back'),
               icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.of(ctx).pop(),

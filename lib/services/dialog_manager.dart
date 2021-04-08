@@ -39,14 +39,14 @@ class _DialogManagerState extends State<DialogManager> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         actions: <Widget>[
           if (isConfirmationDialog)
-            FlatButton(
+            TextButton(
               child: Text(request.cancelTitle),
               onPressed: () {
                 _dialogService.dialogNavigationKey.currentState
                     .pop(DialogResponse(confirmed: false));
               },
             ),
-          FlatButton(
+          TextButton(
             child: Text(request.buttonTitle),
             onPressed: () {
               _dialogService.dialogNavigationKey.currentState

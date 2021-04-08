@@ -1,18 +1,18 @@
 class Rate {
   final Rates rates;
   final String base;
-  final DateTime date;
+  // final DateTime date;
 
   const Rate({
     this.rates,
     this.base,
-    this.date,
+    // this.date,
   });
 
   factory Rate.fromJson(Map<String, dynamic> json, String symbol) => Rate(
         rates: Rates.fromJson(json["rates"], symbol),
         base: json["base"],
-        date: DateTime.parse(json["date"]),
+        // date: DateTime.parse(json["date"]),
       );
 }
 

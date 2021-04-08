@@ -18,8 +18,9 @@ class ThemeEvent extends Equatable {
 class ThemeState extends Equatable {
   final bool value;
   final ThemeData themeData;
+  final TextSelectionThemeData textSelectionThemeData;
 
-  const ThemeState(this.value, this.themeData);
+  const ThemeState(this.value, this.themeData, this.textSelectionThemeData);
 
   @override
   List<Object> get props => [value, themeData];
@@ -40,6 +41,8 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
           accentIconTheme: accentIconTheme,
           floatingActionButtonTheme: floatingTheme,
           appBarTheme: primaryAppBarTheme,
+        ),
+        TextSelectionThemeData().copyWith(
           cursorColor: accentColor,
         ),
       );
@@ -60,6 +63,8 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
               accentIconTheme: darkAccentIconTheme,
               floatingActionButtonTheme: darkFloatingTheme,
               appBarTheme: darkPrimaryAppBarTheme,
+            ),
+            TextSelectionThemeData().copyWith(
               cursorColor: darkAccentColor,
             ),
           )
@@ -74,6 +79,8 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
               accentIconTheme: accentIconTheme,
               floatingActionButtonTheme: floatingTheme,
               appBarTheme: primaryAppBarTheme,
+            ),
+            TextSelectionThemeData().copyWith(
               cursorColor: accentColor,
             ),
           );
@@ -94,6 +101,8 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
                 accentIconTheme: accentIconTheme,
                 floatingActionButtonTheme: floatingTheme,
                 appBarTheme: primaryAppBarTheme,
+              ),
+              TextSelectionThemeData().copyWith(
                 cursorColor: accentColor,
               ),
             )
@@ -108,6 +117,8 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
                 accentIconTheme: darkAccentIconTheme,
                 floatingActionButtonTheme: darkFloatingTheme,
                 appBarTheme: darkPrimaryAppBarTheme,
+              ),
+              TextSelectionThemeData().copyWith(
                 cursorColor: darkAccentColor,
               ),
             );
@@ -130,6 +141,8 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
             accentIconTheme: accentIconTheme,
             floatingActionButtonTheme: floatingTheme,
             appBarTheme: primaryAppBarTheme,
+          ),
+          TextSelectionThemeData().copyWith(
             cursorColor: accentColor,
           ),
         ));

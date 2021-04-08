@@ -26,8 +26,8 @@ class _DialPadState extends State<DialPad> {
   var title = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '✓', ''];
 
   List<Widget> _getDialerButtons(BoxConstraints constraints) {
-    var rows = List<Widget>();
-    var items = List<Widget>();
+    var rows = <Widget>[];
+    var items = <Widget>[];
 
     for (var i = 0; i < title.length; i++) {
       if (i % 3 == 0 && i > 0) {
@@ -46,7 +46,7 @@ class _DialPadState extends State<DialPad> {
         rows.add(SizedBox(
           height: constraints.maxHeight * 0.04,
         ));
-        items = List<Widget>();
+        items = <Widget>[];
       }
 
       if (i != 12) {

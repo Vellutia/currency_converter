@@ -52,7 +52,7 @@ class RecentBloc extends HydratedBloc<RecentEvent, RecentState> {
 
   @override
   RecentState fromJson(Map<String, dynamic> json) {
-    List<RecentCurrency> recent = List<RecentCurrency>();
+    List<RecentCurrency> recent = <RecentCurrency>[];
 
     try {
       final parsed = json['recent'] as List<Map<String, dynamic>>;
